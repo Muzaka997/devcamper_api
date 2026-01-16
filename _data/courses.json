@@ -1,0 +1,391 @@
+[
+  {
+    "_id": "5d725a1b1c9d440000a57d94",
+    "title": "Importance of Homer",
+    "description": "Learn Homer's Iliad and Odyssey in depth.",
+    "weeks": 16,
+    "tuition": 800,
+    "minimumSkill": "beginner",
+    "scholarhipsAvailable": true,
+    "image": "Homer.jpg",
+    "user": "5d713995b721c3bb38c1f5d0",
+    "Weeks": [
+      {
+        "week": 1,
+        "content": [
+          {
+            "type": "video",
+            "title": "The Iliad Overview",
+            "url": "https://www.youtube.com/watch?v=-QPXpCqwHec"
+          },
+          {
+            "type": "homework",
+            "description": "Read Book 1 of the Iliad and write a summary."
+          }
+        ]
+      },
+      {
+        "week": 2,
+        "content": [
+          {
+            "type": "video",
+            "title": "The Odyssey Overview",
+            "url": "https://www.youtube.com/watch?v=z7i9AmmZE2o"
+          },
+          {
+            "type": "homework",
+            "description": "Read Book 1 of the Odyssey and compare it to the Iliad."
+          }
+        ]
+      },
+      {
+        "week": 3,
+        "content": [
+          {
+            "type": "video",
+            "title": "The Story of Achilles",
+            "url": "https://www.youtube.com/watch?v=lD6AcgTpXZA"
+          },
+          {
+            "type": "homework",
+            "description": "Read Book 2 and 3 of Iliad."
+          }
+        ]
+      },
+      {
+        "week": 4,
+        "content": [
+          {
+            "type": "video",
+            "title": "The Story of Odysseus",
+            "url": "https://www.youtube.com/watch?v=MS4jk5kavy4"
+          },
+          {
+            "type": "homework",
+            "description": "Read Book 2 and 3 of Odyssey."
+          }
+        ]
+      },
+      {
+        "week": 5,
+        "content": [
+          {
+            "type": "video",
+            "title": "Why Penelope has an army of men in the house?",
+            "url": "https://www.youtube.com/watch?v=9KUl9tenFbM&list=TLGG1yG-MjjMmIMwNzAxMjAyNg&index=4"
+          },
+          {
+            "type": "homework",
+            "description": "Read Book 4 and 5 of Odyssey."
+          }
+        ]
+      },
+      {
+        "week": 6,
+        "content": [
+          {
+            "type": "video",
+            "title": "What's wrong with Achilles?",
+            "url": "https://www.youtube.com/watch?v=_fF-hUJtREQ"
+          },
+          {
+            "type": "homework",
+            "description": "Read Book 4 and 5 of Iliad."
+          }
+        ]
+      },
+      {
+        "week": 7,
+        "content": [
+          {
+            "type": "video",
+            "title": "Who is the most charismatic woman and Why Helen?",
+            "url": "https://www.youtube.com/watch?v=m-8nZannpfg"
+          },
+          {
+            "type": "homework",
+            "description": "Read Book 6 and 7 of Odyssey."
+          }
+        ]
+      },
+      {
+        "week": 8,
+        "content": [
+          {
+            "type": "video",
+            "title": "Achilles is returning to Troy and once again, what's wrong with Achilles?",
+            "url": "https://www.youtube.com/watch?v=2amey2dmbog"
+          },
+          {
+            "type": "homework",
+            "description": "Read Book 6 and 7 of Iliad."
+          }
+        ]
+      },
+      {
+        "week": 9,
+        "content": [
+          {
+            "type": "video",
+            "title": "Odysseys in Hades and prophecy",
+            "url": "https://www.youtube.com/watch?v=du2kqHxPEgM&list=TLGG1yG-MjjMmIMwNzAxMjAyNg&index=8"
+          },
+          {
+            "type": "homework",
+            "description": "Read Book 8 and 9 of Iliad."
+          }
+        ]
+      },
+      {
+        "week": 10,
+        "content": [
+          {
+            "type": "video",
+            "title": "Why Odysseus and Achilles and not me and you?",
+            "url": "https://www.youtube.com/watch?v=MB9urpL2r90&list=TLGG1yG-MjjMmIMwNzAxMjAyNg&index=2"
+          },
+          {
+            "type": "homework",
+            "description": "Read Book 10 and 11 of Iliad and Odyssey."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "5d725c84c4ded7bcb480eaa0",
+    "title": "Difference between Sophocles and Shakespeare",
+    "description": "Learn what changed in theatre from ancient Greece to Renaissance England.",
+    "weeks": 16,
+    "tuition": 1000,
+    "minimumSkill": "intermediate",
+    "scholarhipsAvailable": true,
+    "image": "Shakespear.jpg",
+    "user": "5d7a514b5d2c12c7449be045",
+    "Weeks": [
+      {
+        "week": 1,
+        "content": [
+          {
+            "type": "video",
+            "title": "Oedipus Rex",
+            "url": "https://www.youtube.com/watch?v=8RXziM9HSi4"
+          },
+          {
+            "type": "homework",
+            "description": "Read Sopochle's Oedipus Rex"
+          }
+        ]
+      },
+      {
+        "week": 2,
+        "content": [
+          {
+            "type": "video",
+            "title": "Are character's of Homer and Sopochles alike?",
+            "url": "https://www.youtube.com/watch?v=0a9Wuz7MvUE"
+          },
+          {
+            "type": "homework",
+            "description": "Read Sopochle's Oedipus In Colonus"
+          }
+        ]
+      },
+      {
+        "week": 3,
+        "content": [
+          {
+            "type": "video",
+            "title": "Shakespeare and main revolution in Literature",
+            "url": "https://www.youtube.com/watch?v=vueglvaAHBs"
+          },
+          {
+            "type": "homework",
+            "description": "Read 1/3 of Hamlet"
+          }
+        ]
+      },
+      {
+        "week": 4,
+        "content": [
+          {
+            "type": "video",
+            "title": "What is the difference between Hamlet and Oedipus?",
+            "url": "https://www.youtube.com/watch?v=QTu39aMg_mU"
+          },
+          {
+            "type": "homework",
+            "description": "Read 2/3 of Hamlet"
+          }
+        ]
+      },
+      {
+        "week": 5,
+        "content": [
+          {
+            "type": "video",
+            "title": "Why should we kill our fathers?",
+            "url": "https://www.youtube.com/watch?v=7TEWU4CqzwM"
+          },
+          {
+            "type": "homework",
+            "description": "Read end of Hamlet"
+          }
+        ]
+      },
+      {
+        "week": 6,
+        "content": [
+          {
+            "type": "video",
+            "title": "Birth of an evil",
+            "url": "https://www.youtube.com/watch?v=tAfeD5x57xM"
+          },
+          {
+            "type": "homework",
+            "description": "Read Richard III"
+          }
+        ]
+      },
+      {
+        "week": 7,
+        "content": [
+          {
+            "type": "video",
+            "title": "God doesn't limp",
+            "url": "https://www.youtube.com/watch?v=0s2IqRS-HIg"
+          },
+          {
+            "type": "homework",
+            "description": "Start Watching House"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "5d725d56c4ded7bcb480eaa1",
+    "title": "Learn how the world has changed because of Dostoevsky's works.",
+    "description": "Deep dive into JS concepts, patterns, and performance.",
+    "weeks": 32,
+    "tuition": 1500,
+    "minimumSkill": "advanced",
+    "scholarhipsAvailable": true,
+    "image": "Fyodor.jpg",
+    "user": "5d7a514b5d2c12c7449be046",
+    "Weeks": [
+      {
+        "week": 1,
+        "content": [
+          {
+            "type": "video",
+            "title": "You are not Napoleon",
+            "url": "https://www.youtube.com/watch?v=Vtkv3-endYc"
+          },
+          {
+            "type": "homework",
+            "description": "Start reading Crime and Punishment"
+          }
+        ]
+      },
+      {
+        "week": 2,
+        "content": [
+          {
+            "type": "video",
+            "title": "There are no gods, only conscience",
+            "url": "https://www.youtube.com/watch?v=EsQiM8Fbf8w"
+          },
+          {
+            "type": "homework",
+            "description": "continue reading Crime and Punishment"
+          }
+        ]
+      },
+      {
+        "week": 3,
+        "content": [
+          {
+            "type": "video",
+            "title": "Similarities between Dostoevsky and Shakespeare and differences between Dostoevsky and Homer",
+            "url": "https://www.youtube.com/watch?v=7EfaIL3XPJI"
+          },
+          {
+            "type": "homework",
+            "description": "Read Crime and Punishment"
+          }
+        ]
+      },
+      {
+        "week": 4,
+        "content": [
+          {
+            "type": "video",
+            "title": "Weak Jesus",
+            "url": "https://www.youtube.com/watch?v=P46j7Y-pfLs"
+          },
+          {
+            "type": "homework",
+            "description": "Start reading Idiot"
+          }
+        ]
+      },
+      {
+        "week": 5,
+        "content": [
+          {
+            "type": "video",
+            "title": "Crusifiction",
+            "url": "https://www.youtube.com/watch?v=_pAbHE5bZ5o"
+          },
+          {
+            "type": "homework",
+            "description": "Continue reading Idiot"
+          }
+        ]
+      },
+      {
+        "week": 6,
+        "content": [
+          {
+            "type": "video",
+            "title": "God forbid",
+            "url": "https://www.youtube.com/watch?v=KfjVa5HmVGs&t=246s"
+          },
+          {
+            "type": "homework",
+            "description": "Read Idiot"
+          }
+        ]
+      },
+      {
+        "week": 7,
+        "content": [
+          {
+            "type": "video",
+            "title": "Everybody wants to kill a father",
+            "url": "https://www.youtube.com/watch?v=KfjVa5HmVGs&t=246s"
+          },
+          {
+            "type": "homework",
+            "description": "Start reading Karamazov Brothers"
+          }
+        ]
+      },
+      {
+        "week": 8,
+        "content": [
+          {
+            "type": "video",
+            "title": "Similarities between Dostoevsky and Sopochles",
+            "url": "https://www.youtube.com/watch?v=kDipv-3nMZI"
+          },
+          {
+            "type": "homework",
+            "description": "Read Karamazov Brothers"
+          }
+        ]
+      }
+    ]
+  }
+]

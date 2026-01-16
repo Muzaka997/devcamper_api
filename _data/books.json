@@ -1,0 +1,79 @@
+[
+  {
+    "title": "Iliad",
+    "author": "Homer",
+    "description": "An epic poem recounting the significant events of the final weeks of the Trojan War.",
+    "image": "Iliad.jpg",
+    "pdf": "Iliad.pdf"
+  },
+  {
+    "title": "Odyssey",
+    "author": "Homer",
+    "description": "An epic poem describing the ten-year journey of Odysseus after the fall of Troy.",
+    "image": "Odyssey.jpg",
+    "pdf": "Odyssey.pdf"
+  },
+  {
+    "title": "Oedipus Rex",
+    "author": "Sophocles",
+    "description": "A tragedy about the fate of Oedipus, who unknowingly kills his father and marries his mother.",
+    "image": "Oedipus.jpg",
+    "pdf": "Oedipus.pdf"
+  },
+  {
+    "title": "The Knight in the Panther's Skin",
+    "author": "Shota Rustaveli",
+    "description": "A medieval Georgian epic poem about a knight's quest for love and honor.",
+    "image": "shota.jpg",
+    "pdf": "TheKnight.pdf"
+  },
+  {
+    "title": "Don Quixote",
+    "author": "Miguel de Cervantes",
+    "description": "A Spanish novel about a nobleman who becomes obsessed with chivalric romances.",
+    "image": "DonQuixote.jpg",
+    "pdf": "DonQuixote.pdf"
+  },
+  {
+    "title": "Hamlet",
+    "author": "William Shakespeare",
+    "description": "A tragedy about the fate of Hamlet, who seeks revenge for his father's murder.",
+    "image": "Hamlet.jpeg",
+    "pdf": "hamlet.pdf"
+  },
+  {
+    "title": "Crime and Punishment",
+    "author": "Fyodor Dostoevsky",
+    "description": "A psychological novel about a young man who commits murder and struggles with guilt.",
+    "image": "Crime.webp",
+    "pdf": "crime.pdf"
+  },
+  {
+    "title": "Brother Karamazov",
+    "author": "Fyodor Dostoevsky",
+    "description": "A psychological novel about a young man who commits murder and struggles with guilt.",
+    "image": "Karamazov.jpg",
+    "pdf": "karamazov.pdf"
+  },
+  {
+    "title": "King Richard III",
+    "author": "William Shakespeare",
+    "description": "A historical play about the rise and fall of King Richard III.",
+    "image": "KingRichardIII.jpg",
+    "pdf": "king_richard_iii.pdf"
+  },
+  {
+    "title": "Divine Comedy",
+    "author": "Dante Alighieri",
+    "description": "An epic poem about the journey through Hell, Purgatory, and Paradise.",
+    "image": "DivineComedy.jpg",
+    "pdf": "divine_comedy.pdf"
+  },
+  {
+    "title": "War and Peace",
+    "author": "Leo Tolstoy",
+    "description": "A novel about the French invasion of Russia and the impact of the Napoleonic era on Russian society.",
+    "image": "WarAndPeace.jpg",
+    "pdf": "war_and_peace.pdf"
+  }
+]

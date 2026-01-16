@@ -1,0 +1,210 @@
+[
+  {
+    "courseTitle": "Importance of Homer",
+
+    "title": "Iliad & Odyssey — Knowledge Test",
+    "timeLimitMinutes": 30,
+    "passingScore": 70,
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is Achilles’ main motivation in The Iliad?",
+        "options": [
+          "Love for Helen",
+          "Desire for kleos (glory)",
+          "Loyalty to Agamemnon",
+          "Fear of death"
+        ],
+        "correctAnswer": "Desire for kleos (glory)"
+      },
+      {
+        "id": "q2",
+        "question": "Why does Achilles refuse to fight?",
+        "options": [
+          "He is wounded",
+          "Agamemnon insults him",
+          "The gods forbid him",
+          "He is afraid of Hector"
+        ],
+        "correctAnswer": "Agamemnon insults him"
+      },
+      {
+        "id": "q3",
+        "question": "Who kills Hector?",
+        "options": ["Paris", "Odysseus", "Achilles", "Agamemnon"],
+        "correctAnswer": "Achilles"
+      },
+      {
+        "id": "q4",
+        "question": "Why does Odysseus blind Polyphemus?",
+        "options": [
+          "To steal his sheep",
+          "To escape captivity",
+          "To impress Athena",
+          "To win a bet"
+        ],
+        "correctAnswer": "To escape captivity"
+      },
+      {
+        "id": "q5",
+        "question": "What mistake does Odysseus make after escaping Polyphemus?",
+        "options": [
+          "He falls asleep",
+          "He insults Poseidon",
+          "He reveals his name",
+          "He loses his ship"
+        ],
+        "correctAnswer": "He reveals his name"
+      },
+      {
+        "id": "q6",
+        "question": "Who waits faithfully for Odysseus?",
+        "options": ["Helen", "Calypso", "Penelope", "Nausicaa"],
+        "correctAnswer": "Penelope"
+      },
+      {
+        "id": "q7",
+        "question": "What is xenia?",
+        "options": [
+          "A weapon",
+          "Hospitality toward strangers",
+          "A Trojan city",
+          "A god"
+        ],
+        "correctAnswer": "Hospitality toward strangers"
+      },
+      {
+        "id": "q8",
+        "question": "Which god is Odysseus’ main protector?",
+        "options": ["Zeus", "Poseidon", "Apollo", "Athena"],
+        "correctAnswer": "Athena"
+      },
+      {
+        "id": "q9",
+        "question": "Who causes Odysseus the most trouble?",
+        "options": ["Hades", "Ares", "Poseidon", "Hermes"],
+        "correctAnswer": "Poseidon"
+      },
+      {
+        "id": "q10",
+        "question": "What does The Odyssey mainly celebrate?",
+        "options": [
+          "Strength",
+          "Intelligence and endurance",
+          "Revenge",
+          "Romance"
+        ],
+        "correctAnswer": "Intelligence and endurance"
+      }
+    ]
+  },
+
+  {
+    "courseTitle": "Difference Between Sophocles and Shakespeare",
+    "title": "Sophocles vs Shakespeare — Knowledge Test",
+    "timeLimitMinutes": 30,
+    "passingScore": 70,
+    "questions": [
+      {
+        "id": "sophshake_q1",
+        "question": "Which literary period does Sophocles belong to?",
+        "options": [
+          "Greek Classical period",
+          "Roman Empire",
+          "Middle Ages",
+          "Renaissance"
+        ],
+        "correctAnswer": "Greek Classical period"
+      },
+      {
+        "id": "sophshake_q2",
+        "question": "Which period is Shakespeare associated with?",
+        "options": [
+          "Greek Classical",
+          "Renaissance",
+          "Enlightenment",
+          "Modernism"
+        ],
+        "correctAnswer": "Renaissance"
+      },
+      {
+        "id": "sophshake_q3",
+        "question": "What was the main form of drama for Sophocles?",
+        "options": ["Comedy", "Epic poetry", "Tragedy", "Romance"],
+        "correctAnswer": "Tragedy"
+      },
+      {
+        "id": "sophshake_q4",
+        "question": "Which genre did Shakespeare write in addition to tragedy?",
+        "options": [
+          "Philosophical essays",
+          "Comedies and histories",
+          "Only tragedies",
+          "Religious texts"
+        ],
+        "correctAnswer": "Comedies and histories"
+      },
+      {
+        "id": "sophshake_q5",
+        "question": "How is fate usually portrayed in Sophocles’ plays?",
+        "options": [
+          "As something humans can easily change",
+          "As controlled by love",
+          "As unavoidable and powerful",
+          "As unimportant"
+        ],
+        "correctAnswer": "As unavoidable and powerful"
+      },
+      {
+        "id": "sophshake_q6",
+        "question": "In Shakespeare’s plays, characters’ problems are usually caused by",
+        "options": [
+          "The gods",
+          "Fate alone",
+          "Their own choices and flaws",
+          "Magic"
+        ],
+        "correctAnswer": "Their own choices and flaws"
+      },
+      {
+        "id": "sophshake_q7",
+        "question": "Which element is important in Sophocles’ tragedies but less so in Shakespeare?",
+        "options": ["Chorus", "Soliloquy", "Comic relief", "Romantic subplot"],
+        "correctAnswer": "Chorus"
+      },
+      {
+        "id": "sophshake_q8",
+        "question": "Which element is typical of Shakespeare’s plays?",
+        "options": [
+          "A strict chorus",
+          "Long soliloquies revealing inner thoughts",
+          "One single setting",
+          "No female characters"
+        ],
+        "correctAnswer": "Long soliloquies revealing inner thoughts"
+      },
+      {
+        "id": "sophshake_q9",
+        "question": "Sophocles’ heroes usually struggle mainly against",
+        "options": [
+          "Political enemies",
+          "Fate and the gods",
+          "Romantic rivals",
+          "Society"
+        ],
+        "correctAnswer": "Fate and the gods"
+      },
+      {
+        "id": "sophshake_q10",
+        "question": "Shakespeare’s tragic heroes usually fall because of",
+        "options": [
+          "Divine punishment",
+          "A prophecy",
+          "A personal flaw (hamartia)",
+          "Bad luck"
+        ],
+        "correctAnswer": "A personal flaw (hamartia)"
+      }
+    ]
+  }
+]
