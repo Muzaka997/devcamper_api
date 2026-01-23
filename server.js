@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === "development") {
 app.use(
   mongoSanitize({
     replaceWith: "_",
-  })
+  }),
 );
 
 // Set security headers
@@ -66,13 +66,16 @@ app.use(hpp());
 // Enable CORS
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
+// File uploading
+// app.use(fileUpload());
+
 // Set static folder
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
-  })
+  }),
 );
 
 app.use("/api/v1/courses", courses);
@@ -88,8 +91,9 @@ const PORT = process.env.PORT || 5001;
 const server = app.listen(
   PORT,
   console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-  )
+    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
+      .bold,
+  ),
 );
 
 // Handle unhandled promise rejections

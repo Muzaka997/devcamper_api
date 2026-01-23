@@ -3,77 +3,110 @@
     "title": "Iliad",
     "author": "Homer",
     "description": "An epic poem recounting the significant events of the final weeks of the Trojan War.",
-    "image": "Iliad.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127698/books/covers/qc1i4v65fp3jhxdxvmbi.jpg",
+      "publicId": "books/covers/qc1i4v65fp3jhxdxvmbi"
+    },
     "pdf": "Iliad.pdf"
   },
   {
     "title": "Odyssey",
     "author": "Homer",
     "description": "An epic poem describing the ten-year journey of Odysseus after the fall of Troy.",
-    "image": "Odyssey.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127702/books/covers/bmkgykcdto3v3pa6tywz.jpg",
+      "publicId": "books/covers/bmkgykcdto3v3pa6tywz"
+    },
     "pdf": "Odyssey.pdf"
   },
   {
     "title": "Oedipus Rex",
     "author": "Sophocles",
     "description": "A tragedy about the fate of Oedipus, who unknowingly kills his father and marries his mother.",
-    "image": "Oedipus.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127703/books/covers/qv69f9avuju3fcvb78hm.webp",
+      "publicId": "books/covers/qv69f9avuju3fcvb78hm"
+    },
     "pdf": "Oedipus.pdf"
   },
   {
     "title": "The Knight in the Panther's Skin",
     "author": "Shota Rustaveli",
     "description": "A medieval Georgian epic poem about a knight's quest for love and honor.",
-    "image": "shota.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127709/books/covers/b8u56flood0hdjpe8c3d.jpg",
+      "publicId": "books/covers/b8u56flood0hdjpe8c3d"
+    },
     "pdf": "TheKnight.pdf"
   },
   {
     "title": "Don Quixote",
     "author": "Miguel de Cervantes",
     "description": "A Spanish novel about a nobleman who becomes obsessed with chivalric romances.",
-    "image": "DonQuixote.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127692/books/covers/ixsuhll2qqoscbhykigv.jpg",
+      "publicId": "books/covers/ixsuhll2qqoscbhykigv"
+    },
     "pdf": "DonQuixote.pdf"
   },
   {
     "title": "Hamlet",
     "author": "William Shakespeare",
     "description": "A tragedy about the fate of Hamlet, who seeks revenge for his father's murder.",
-    "image": "Hamlet.jpeg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127696/books/covers/zd2lbstpm4vz5b5b7pyj.jpg",
+      "publicId": "books/covers/zd2lbstpm4vz5b5b7pyj"
+    },
     "pdf": "hamlet.pdf"
   },
   {
     "title": "Crime and Punishment",
     "author": "Fyodor Dostoevsky",
     "description": "A psychological novel about a young man who commits murder and struggles with guilt.",
-    "image": "Crime.webp",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127689/books/covers/sxszwocjhwkusz1yftrf.webp",
+      "publicId": "books/covers/sxszwocjhwkusz1yftrf"
+    },
     "pdf": "crime.pdf"
   },
   {
     "title": "Brother Karamazov",
     "author": "Fyodor Dostoevsky",
     "description": "A psychological novel about a young man who commits murder and struggles with guilt.",
-    "image": "Karamazov.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127700/books/covers/ogdflp4gdg7gxzznlnnm.jpg",
+      "publicId": "books/covers/ogdflp4gdg7gxzznlnnm"
+    },
     "pdf": "karamazov.pdf"
   },
   {
     "title": "King Richard III",
     "author": "William Shakespeare",
     "description": "A historical play about the rise and fall of King Richard III.",
-    "image": "KingRichardIII.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127701/books/covers/o5pdl5fztw3grq9usox7.jpg",
+      "publicId": "books/covers/o5pdl5fztw3grq9usox7"
+    },
     "pdf": "king_richard_iii.pdf"
   },
   {
     "title": "Divine Comedy",
     "author": "Dante Alighieri",
     "description": "An epic poem about the journey through Hell, Purgatory, and Paradise.",
-    "image": "DivineComedy.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127690/books/covers/xug1f1ne1xkncahtukxy.jpg",
+      "publicId": "books/covers/xug1f1ne1xkncahtukxy"
+    },
     "pdf": "divine_comedy.pdf"
   },
   {
     "title": "War and Peace",
     "author": "Leo Tolstoy",
     "description": "A novel about the French invasion of Russia and the impact of the Napoleonic era on Russian society.",
-    "image": "WarAndPeace.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127708/books/covers/zstfszzjij6fadco9fix.jpg",
+      "publicId": "books/covers/zstfszzjij6fadco9fix"
+    },
     "pdf": "war_and_peace.pdf"
   }
 ]

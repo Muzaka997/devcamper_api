@@ -7,7 +7,10 @@
     "tuition": 800,
     "minimumSkill": "beginner",
     "scholarhipsAvailable": true,
-    "image": "Homer.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127697/books/covers/zfg1yth2b1dyr1q4lokj.jpg",
+      "publicId": "books/covers/zfg1yth2b1dyr1q4lokj"
+    },
     "user": "5d713995b721c3bb38c1f5d0",
     "Weeks": [
       {
@@ -160,7 +163,10 @@
     "tuition": 1000,
     "minimumSkill": "intermediate",
     "scholarhipsAvailable": true,
-    "image": "Shakespear.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127706/books/covers/sidls2fn5ardnax4ywoq.jpg",
+      "publicId": "books/covers/sidls2fn5ardnax4ywoq"
+    },
     "user": "5d7a514b5d2c12c7449be045",
     "Weeks": [
       {
@@ -271,7 +277,10 @@
     "tuition": 1500,
     "minimumSkill": "advanced",
     "scholarhipsAvailable": true,
-    "image": "Fyodor.jpg",
+    "image": {
+      "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127695/books/covers/plmag3iiow0vhf2gh18y.jpg",
+      "publicId": "books/covers/plmag3iiow0vhf2gh18y"
+    },
     "user": "5d7a514b5d2c12c7449be046",
     "Weeks": [
       {

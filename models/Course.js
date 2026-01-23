@@ -33,8 +33,8 @@ const CourseSchema = new mongoose.Schema({
     default: Date.now,
   },
   image: {
-    type: String,
-    default: "no-photo.jpg",
+    url: String,
+    publicId: String,
   },
   user: {
     type: mongoose.Schema.ObjectId,
