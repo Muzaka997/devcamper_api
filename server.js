@@ -16,8 +16,19 @@ const cors = require("cors");
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
 
-//Connect to database
-connectDB();
+// Connect to database with explicit startup logs
+const startDatabase = async () => {
+  console.log("Starting database connection...".yellow);
+  try {
+    await connectDB();
+    console.log("Database connection established".green);
+  } catch (err) {
+    console.error("Database connection failed:", err.message || err);
+    // Do not exit here; let error surface to logs so Vercel shows the failure
+  }
+};
+
+startDatabase();
 
 //Route files
 
