@@ -8,6 +8,8 @@ const {
   upload,
   uploadUserPhoto,
   userPhotoUpload,
+  submitTest,
+  getSingleTest,
 } = require("../controllers/users");
 
 const User = require("../models/User");
@@ -25,5 +27,9 @@ router.route("/").get(advancedResults(User), getUsers).post(createUser);
 router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 
 router.route("/:id/photo").put(protect, upload, userPhotoUpload);
+
+router.route("/:id/submit").post(protect, submitTest);
+
+router.route("/:id").get(protect, getSingleTest);
 
 module.exports = router;

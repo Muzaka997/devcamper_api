@@ -22,6 +22,12 @@ const QuestionSchema = new mongoose.Schema({
   correctAnswer: {
     type: String,
     required: true,
+    validate: {
+      validator: function (value) {
+        return this.options.includes(value);
+      },
+      message: "Correct answer must match one of the provided options",
+    },
   },
 });
 
@@ -49,6 +55,7 @@ const TestSchema = new mongoose.Schema({
     type: [QuestionSchema],
     required: true,
   },
+
   createdAt: {
     type: Date,
     default: Date.now,

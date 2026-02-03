@@ -7,6 +7,7 @@ const fs = require("fs");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const streamifier = require("streamifier");
+const Test = require("../models/Test");
 
 // Cloudinary configuration
 cloudinary.config({
@@ -69,6 +70,100 @@ exports.userPhotoUpload = asyncHandler(async (req, res, next) => {
 
   streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
 });
+
+// controllers/tests.js
+
+exports.submitTest = async (req, res) => {
+  try {
+    const userId = req.user.id; // ← from protect middleware
+    const { id: testId } = req.params;
+    const { answers } = req.body;
+
+    // Find test
+    const test = await Test.findById(testId);
+    if (!test) {
+      return res.status(404).json({ success: false, error: "Test not found" });
+    }
+
+    // Find user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
+
+    // Check if user already took this test
+    const alreadyTaken = user.testResults.some(
+      (result) => result.test.toString() === testId,
+    );
+    if (alreadyTaken) {
+      return res.status(400).json({
+        success: false,
+        error: "You have already taken this test",
+      });
+    }
+
+    // Calculate score
+    let correct = 0;
+    test.questions.forEach((q) => {
+      const userAnswer = answers.find((a) => a.questionId === q.id);
+      if (userAnswer?.selectedOption === q.correctAnswer) correct++;
+    });
+
+    const score = Math.round((correct / test.questions.length) * 100);
+    const passed = score >= test.passingScore;
+
+    // Add result to user
+    user.testResults.push({
+      test: test._id,
+      score,
+      passed,
+      submitted: true, // <--- THIS is what you need
+    });
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      score,
+      passed,
+      correctAnswers: Object.fromEntries(
+        test.questions.map((q) => [q.id, q.correctAnswer]),
+      ),
+    });
+  } catch (err) {
+    console.error("Submit test error:", err);
+    res.status(500).json({ success: false, error: "Server error" });
+  }
+};
+
+// user has submitted concrete test
+
+exports.getSingleTest = async (req, res) => {
+  try {
+    const test = await Test.findById(req.params.id);
+    if (!test) {
+      return res.status(404).json({ success: false, error: "Test not found" });
+    }
+
+    const user = await User.findById(req.user.id);
+
+    const existingResult = user.testResults.find(
+      (r) => r.test.toString() === test._id.toString(),
+    );
+
+    res.status(200).json({
+      success: true,
+      data: {
+        ...test.toObject(),
+        alreadySubmitted: !!existingResult,
+        userScore: existingResult?.score || null,
+        userPassed: existingResult?.passed || null,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: "Server error" });
+  }
+};
 
 // Upload photo and save in DB
 // exports.uploadUserPhoto = asyncHandler(async (req, res, next) => {

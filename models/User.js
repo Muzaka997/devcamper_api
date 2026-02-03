@@ -23,6 +23,21 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  testResults: [
+    {
+      test: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Test",
+      },
+      score: Number,
+      passed: Boolean,
+      takenAt: {
+        type: Date,
+        default: Date.now,
+      },
+      submitted: { type: Boolean, default: false },
+    },
+  ],
 });
 
 // Encrypt password using bcrypt

@@ -26,7 +26,13 @@ exports.getTests = asyncHandler(async (req, res, next) => {
 // get a single test
 
 exports.getTest = asyncHandler(async (req, res, next) => {
-  const test = await Test.findById(req.params.id);
+  const test = await Test.findById(req.params.id).lean();
+
+  if (!test) {
+    return next(new ErrorResponse("Test not found", 404));
+  }
+
+  test.questions = test.questions.map(({ correctAnswer, ...q }) => q);
 
   res.status(200).json({ success: true, data: test });
 });
