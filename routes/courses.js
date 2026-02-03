@@ -7,6 +7,8 @@ router.get("/", getCourses);
 router.get("/:id", getCourse);
 module.exports = router;
 
+// Previous code:
+
 // const express = require("express");
 // const {
 //   getCourses,
