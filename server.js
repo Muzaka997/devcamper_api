@@ -88,13 +88,18 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5001;
 
-const server = app.listen(
-  PORT,
-  console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
-      .bold,
-  ),
-);
+let server;
+
+// Start server only when this file is run directly (not when required by a serverless wrapper)
+if (require.main === module) {
+  server = app.listen(
+    PORT,
+    console.log(
+      `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
+        .bold,
+    ),
+  );
+}
 
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {
