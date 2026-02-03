@@ -11,6 +11,7 @@ const rateLimit = require("express-rate-limit");
 const hpp = require("hpp");
 const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
+const mongoose = require("mongoose");
 const cors = require("cors");
 
 //Load env vars
@@ -88,6 +89,19 @@ app.use(
     crossOriginResourcePolicy: false,
   }),
 );
+
+// Ensure DB connected before handling requests (prevents errors when bufferCommands=false)
+const ensureDBConnected = async (req, res, next) => {
+  try {
+    if (mongoose.connection.readyState === 1) return next();
+    await connectDB();
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+};
+
+app.use(ensureDBConnected);
 
 // Health check for serverless function / monitoring
 app.get("/api/health", (req, res) => {
