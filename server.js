@@ -76,7 +76,12 @@ app.use(limiter);
 app.use(hpp());
 
 // Enable CORS
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: "https://learning-app-inky-tau.vercel.app",
+    credentials: true,
+  }),
+);
 
 // File uploading
 // app.use(fileUpload());
