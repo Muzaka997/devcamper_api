@@ -6,7 +6,7 @@ mongoose.set("bufferCommands", false); // don't buffer model operations if not c
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+    const conn = await mongoose.connect(process.env.MONGODB_URI, {
       // Recommended options
       useNewUrlParser: true,
       useUnifiedTopology: true,
