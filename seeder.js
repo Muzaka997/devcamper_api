@@ -15,24 +15,24 @@ const Book = require("./models/Book");
 const Test = require("./models/Test");
 
 // Connect to DB
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 // Read JSON files
 
 const courses = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/courses.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/_data/courses.json`, "utf-8"),
 );
 
 const users = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/users.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/_data/users.json`, "utf-8"),
 );
 
 const books = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/books.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/_data/books.json`, "utf-8"),
 );
 
 const tests = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/tests.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/_data/tests.json`, "utf-8"),
 );
 
 // Hash user passwords
