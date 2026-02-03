@@ -78,6 +78,11 @@ app.use(
   }),
 );
 
+// Health check for serverless function / monitoring
+app.get("/api/health", (req, res) => {
+  return res.status(200).json({ status: "ok", uptime: process.uptime() });
+});
+
 app.use("/api/v1/courses", courses);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
@@ -105,5 +110,12 @@ if (require.main === module) {
 process.on("unhandledRejection", (err, promise) => {
   console.log(`Error: ${err.message}`.red);
   //Close server & exit process
-  server.close(() => process.exit(1));
+  if (server && server.close) {
+    server.close(() => process.exit(1));
+  } else {
+    process.exit(1);
+  }
 });
+
+// Export app for serverless wrapper and testing
+module.exports = app;
