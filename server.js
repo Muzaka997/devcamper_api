@@ -60,7 +60,21 @@ app.use(
 );
 
 // Set security headers
-// app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        "frame-ancestors": [
+          "'self'",
+          "https://learning-app-inky-tau.vercel.app",
+          "http://localhost:5173",
+        ],
+      },
+    },
+    crossOriginResourcePolicy: false,
+  }),
+);
 
 // Prevent XSS attacks
 app.use(xss());
@@ -96,13 +110,19 @@ app.use(
 // File uploading
 // app.use(fileUpload());
 
-// Set static folder
-app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
-
+// Set static folder (allow framing from your frontend origins)
 app.use(
-  helmet({
-    crossOriginResourcePolicy: false,
-  }),
+  "/uploads",
+  (req, res, next) => {
+    // remove X-Frame-Options added by default and add CSP frame-ancestors
+    res.removeHeader("X-Frame-Options");
+    res.setHeader(
+      "Content-Security-Policy",
+      "frame-ancestors 'self' http://localhost:5173 https://learning-app-inky-tau.vercel.app",
+    );
+    next();
+  },
+  express.static(path.join(__dirname, "public/uploads")),
 );
 
 // Ensure DB connected before handling requests (prevents errors when bufferCommands=false)
