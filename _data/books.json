@@ -37,7 +37,7 @@
       "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127709/books/covers/b8u56flood0hdjpe8c3d.jpg",
       "publicId": "books/covers/b8u56flood0hdjpe8c3d"
     },
-    "pdf": "TheKnight.pdf"
+    "pdf": "Knight.pdf"
   },
   {
     "title": "Don Quixote",
@@ -87,7 +87,7 @@
       "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127701/books/covers/o5pdl5fztw3grq9usox7.jpg",
       "publicId": "books/covers/o5pdl5fztw3grq9usox7"
     },
-    "pdf": "king_richard_iii.pdf"
+    "pdf": "RichardIII.pdf"
   },
   {
     "title": "Divine Comedy",
@@ -97,7 +97,7 @@
       "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127690/books/covers/xug1f1ne1xkncahtukxy.jpg",
       "publicId": "books/covers/xug1f1ne1xkncahtukxy"
     },
-    "pdf": "divine_comedy.pdf"
+    "pdf": "DivineComedy.pdf"
   },
   {
     "title": "War and Peace",
@@ -107,6 +107,6 @@
       "url": "https://res.cloudinary.com/dvvgeelwh/image/upload/v1769127708/books/covers/zstfszzjij6fadco9fix.jpg",
       "publicId": "books/covers/zstfszzjij6fadco9fix"
     },
-    "pdf": "war_and_peace.pdf"
+    "pdf": "WarAndPeace.pdf"
   }
 ]
