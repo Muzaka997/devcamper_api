@@ -76,9 +76,19 @@ app.use(limiter);
 app.use(hpp());
 
 // Enable CORS
+const allowedOrigins = [
+  "https://learning-app-inky-tau.vercel.app",
+  "http://localhost:5173",
+];
+
 app.use(
   cors({
-    origin: "https://learning-app-inky-tau.vercel.app",
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // allow non-browser tools (curl, Postman)
+      return allowedOrigins.includes(origin)
+        ? callback(null, true)
+        : callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   }),
 );
