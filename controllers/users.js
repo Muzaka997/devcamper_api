@@ -39,6 +39,11 @@ exports.userPhotoUpload = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Please upload a file", 400));
   }
 
+  // Ensure user can only change their own photo unless privileged
+  if (req.user.id !== req.params.id && req.user.role !== "publisher") {
+    return next(new ErrorResponse("Not authorized to update this user", 403));
+  }
+
   const uploadStream = cloudinary.uploader.upload_stream(
     { folder: "users" },
     async (error, result) => {

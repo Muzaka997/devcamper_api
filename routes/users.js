@@ -20,13 +20,18 @@ const advancedResults = require("../middleware/advancedResults");
 const { protect, authorize } = require("../middleware/auth");
 
 router.use(protect);
+
+// Allow any authenticated user to upload their own profile photo
+router.route("/:id/photo").put(upload, userPhotoUpload);
+
+// The routes below require elevated role
 router.use(authorize("publisher"));
 
 router.route("/").get(advancedResults(User), getUsers).post(createUser);
 
 router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 
-router.route("/:id/photo").put(protect, upload, userPhotoUpload);
+// (kept above without role restriction)
 
 router.route("/:id/submit").post(protect, submitTest);
 
