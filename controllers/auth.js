@@ -4,62 +4,15 @@ const sendEmail = require("../utils/sendEmail");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 
-// @desc      Register user (sends email verification link)
+// @desc      Register user
 // @route     POST /api/v1/auth/register
 // @access    Public
 exports.register = asyncHandler(async (req, res, next) => {
   const { name, email, password, role } = req.body;
 
-  // Create user
+  // Create user and sign them in immediately
   const user = await User.create({ name, email, password, role });
-
-  // Generate email verification token
-  const verifyToken = user.getEmailVerifyToken();
-  await user.save({ validateBeforeSave: false });
-
-  const frontendBase =
-    process.env.FRONTEND_URL ||
-    (process.env.NODE_ENV === "production"
-      ? "https://example.com" // fallback, update FRONTEND_URL in env
-      : "http://localhost:5173");
-
-  const verifyUrl = `${frontendBase}/verify-email?token=${verifyToken}`;
-
-  const message = `Please verify your email by clicking the following link: ${verifyUrl}`;
-  const html = `
-    <div style="font-family:Arial,sans-serif;line-height:1.5;color:#111">
-      <h2>Verify your email</h2>
-      <p>Hi ${name || "there"},</p>
-      <p>Thanks for registering. Please confirm this email address to activate your account.</p>
-      <p>
-        <a href="${verifyUrl}" style="display:inline-block;padding:10px 16px;background:#1976d2;color:#fff;text-decoration:none;border-radius:6px">Verify Email</a>
-      </p>
-      <p>If the button doesn't work, copy and paste this URL in your browser:</p>
-      <p><a href="${verifyUrl}">${verifyUrl}</a></p>
-      <p>This link will expire in 24 hours.</p>
-    </div>
-  `;
-
-  try {
-    await sendEmail({
-      email: user.email,
-      subject: "Verify your email",
-      message,
-      html,
-    });
-  } catch (err) {
-    // cleanup tokens if email fails
-    user.emailVerifyToken = undefined;
-    user.emailVerifyExpire = undefined;
-    await user.save({ validateBeforeSave: false });
-    return next(new ErrorResponse("Verification email could not be sent", 500));
-  }
-
-  res.status(200).json({
-    success: true,
-    message:
-      "Registration successful. Please check your email to verify your account.",
-  });
+  sendTokenResponse(user, 200, res);
 });
 
 // @desc      Login user
@@ -87,14 +40,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Invalid credentials", 401));
   }
 
-  if (!user.isEmailVerified) {
-    return next(
-      new ErrorResponse(
-        "Please verify your email before logging in. We've sent you a verification link.",
-        401,
-      ),
-    );
-  }
+  // No email verification required for login
 
   sendTokenResponse(user, 200, res);
 });
@@ -157,34 +103,7 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
   sendTokenResponse(user, 200, res);
 });
 
-// @desc      Verify email
-// @route     GET /api/v1/auth/verifyemail/:verifytoken
-// @access    Public
-exports.verifyEmail = asyncHandler(async (req, res, next) => {
-  const hashed = crypto
-    .createHash("sha256")
-    .update(req.params.verifytoken)
-    .digest("hex");
-
-  const user = await User.findOne({
-    emailVerifyToken: hashed,
-    emailVerifyExpire: { $gt: Date.now() },
-  });
-
-  if (!user) {
-    return next(
-      new ErrorResponse("Invalid or expired verification token", 400),
-    );
-  }
-
-  user.isEmailVerified = true;
-  user.emailVerifyToken = undefined;
-  user.emailVerifyExpire = undefined;
-  await user.save({ validateBeforeSave: false });
-
-  // After verification, issue auth token so user is signed in
-  sendTokenResponse(user, 200, res);
-});
+// Email verification endpoint removed
 
 // @desc      Forgot password
 // @route     POST /api/v1/auth/forgotpassword

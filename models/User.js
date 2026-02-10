@@ -16,9 +16,7 @@ const UserSchema = new mongoose.Schema({
   },
   role: { type: String, enum: ["user", "publisher"], default: "user" },
   password: { type: String, required: true, minlength: 6, select: false },
-  isEmailVerified: { type: Boolean, default: false },
-  emailVerifyToken: String,
-  emailVerifyExpire: Date,
+  // Email verification removed
   resetPasswordToken: String,
   resetPasswordExpire: Date,
   createdAt: { type: Date, default: Date.now },
@@ -80,21 +78,6 @@ UserSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-// Generate and hash email verification token
-UserSchema.methods.getEmailVerifyToken = function () {
-  // Generate token
-  const verifyToken = crypto.randomBytes(20).toString("hex");
-
-  // Hash and set
-  this.emailVerifyToken = crypto
-    .createHash("sha256")
-    .update(verifyToken)
-    .digest("hex");
-
-  // Set expire (e.g., 24h)
-  this.emailVerifyExpire = Date.now() + 24 * 60 * 60 * 1000;
-
-  return verifyToken;
-};
+// Email verification token generation removed
 
 module.exports = mongoose.model("User", UserSchema);
