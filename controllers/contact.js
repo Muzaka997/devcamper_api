@@ -40,14 +40,21 @@ exports.sendContactMessage = asyncHandler(async (req, res, next) => {
     </div>
   `;
 
-  // Use a verified sender for best deliverability; set reply-to to the account email
-  await sendEmail({
-    email: to,
-    subject,
-    message: composed,
-    html,
-    replyTo: senderEmail,
-  });
-
-  return res.status(200).json({ success: true, data: { sent: true } });
+  // Try to send email; do not fail the request in production environments
+  try {
+    await sendEmail({
+      email: to,
+      subject,
+      message: composed,
+      html,
+      replyTo: senderEmail,
+    });
+    return res.status(200).json({ success: true, data: { sent: true } });
+  } catch (err) {
+    // Log but respond success so UI can proceed (useful on hosts that block SMTP)
+    console.warn("Contact email send failed:", err?.message || err);
+    return res
+      .status(200)
+      .json({ success: true, data: { sent: false, note: "email_not_sent" } });
+  }
 });
