@@ -1,9 +1,10 @@
 const express = require("express");
 const { sendContactMessage } = require("../controllers/contact");
+const { protect } = require("../middleware/auth");
 
 const router = express.Router();
 
-// Allow public contact submissions (no auth required)
-router.post("/", sendContactMessage);
+// Require authentication: use the account's registered email only
+router.post("/", protect, sendContactMessage);
 
 module.exports = router;

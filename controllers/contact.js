@@ -4,28 +4,20 @@ const sendEmail = require("../utils/sendEmail");
 
 // @desc      Send contact message
 // @route     POST /api/v1/contact
-// @access    Public (no auth required)
+// @access    Private (auth required)
 exports.sendContactMessage = asyncHandler(async (req, res, next) => {
-  const { name, email, message } = req.body || {};
+  const { name, message } = req.body || {};
 
   if (!message || typeof message !== "string" || message.trim().length < 3) {
     return next(new ErrorResponse("A valid message is required", 400));
   }
 
-  // Prefer authenticated user email if present; otherwise require a valid email in body
-  const accountEmail = req.user?.email;
-  const accountName = req.user?.name;
-
-  // Basic email validation
-  const isEmail = (val) =>
-    typeof val === "string" && /.+@.+\..+/.test(val.trim());
-
-  const senderEmail = accountEmail || (isEmail(email) ? email.trim() : null);
-  if (!senderEmail) {
-    return next(new ErrorResponse("A valid email is required", 400));
+  // Use only the authenticated account's email; ignore any email from body
+  if (!req.user || !req.user.email) {
+    return next(new ErrorResponse("Not authorized", 401));
   }
-
-  const displayName = (name || accountName || "Anonymous").toString().trim();
+  const senderEmail = req.user.email;
+  const displayName = (name || req.user.name || "User").toString().trim();
 
   // Recipient (site owner)
   const to = process.env.CONTACT_RECIPIENT_EMAIL || process.env.FROM_EMAIL;
@@ -48,7 +40,7 @@ exports.sendContactMessage = asyncHandler(async (req, res, next) => {
     </div>
   `;
 
-  // Use a verified sender for best deliverability; set reply-to to the real sender
+  // Use a verified sender for best deliverability; set reply-to to the account email
   await sendEmail({
     email: to,
     subject,
