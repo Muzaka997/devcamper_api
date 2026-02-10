@@ -19,14 +19,26 @@ dotenv.config({ path: "./config/config.env" });
 
 // Build allowed frontend origins from env with safe fallbacks
 const normalizeOrigin = (o) => (o ? o.replace(/\/$/, "") : o);
+
+// Support multiple origins from env (comma-separated)
+const parseCsv = (val) =>
+  (val || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((s) => s.replace(/\/$/, ""));
+
 const ENV_ORIGINS = [
+  ...parseCsv(process.env.ALLOWED_ORIGINS),
   normalizeOrigin(process.env.FRONTEND_URL),
   normalizeOrigin(process.env.FRONTEND_LOCAL_URL),
 ].filter(Boolean);
+
 const DEFAULT_ORIGINS = [
   "https://learning-app-inky-tau.vercel.app",
   "http://localhost:5173",
 ];
+
 const allowedOrigins = Array.from(
   new Set([...ENV_ORIGINS, ...DEFAULT_ORIGINS]),
 );
@@ -100,15 +112,42 @@ app.use(limiter);
 // Prevent http param pollution
 app.use(hpp());
 
-// Enable CORS
+// Enable CORS (allow prod, local, and Vercel preview domains)
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true; // allow non-browser tools (curl, Postman)
+  const normalized = origin.replace(/\/$/, "");
+  if (allowedOrigins.includes(normalized)) return true;
+
+  try {
+    const { hostname, protocol } = new URL(normalized);
+    // Allow any https vercel.app origin (covers preview deployments)
+    if (protocol === "https:" && /\.vercel\.app$/i.test(hostname)) {
+      return true;
+    }
+  } catch (_) {
+    // fall through to false
+  }
+
+  return false;
+};
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // allow non-browser tools (curl, Postman)
-      const normalized = origin.replace(/\/$/, "");
-      return allowedOrigins.includes(normalized)
-        ? callback(null, true)
-        : callback(new Error("Not allowed by CORS"));
+      if (isAllowedOrigin(origin)) return callback(null, true);
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  }),
+);
+
+// Explicitly respond to preflight for all routes
+app.options(
+  "*",
+  cors({
+    origin: (origin, callback) => {
+      if (isAllowedOrigin(origin)) return callback(null, true);
+      return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
   }),
