@@ -17,6 +17,20 @@ const cors = require("cors");
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
 
+// Build allowed frontend origins from env with safe fallbacks
+const normalizeOrigin = (o) => (o ? o.replace(/\/$/, "") : o);
+const ENV_ORIGINS = [
+  normalizeOrigin(process.env.FRONTEND_URL),
+  normalizeOrigin(process.env.FRONTEND_LOCAL_URL),
+].filter(Boolean);
+const DEFAULT_ORIGINS = [
+  "https://learning-app-inky-tau.vercel.app",
+  "http://localhost:5173",
+];
+const allowedOrigins = Array.from(
+  new Set([...ENV_ORIGINS, ...DEFAULT_ORIGINS]),
+);
+
 // Connect to database with explicit startup logs
 const startDatabase = async () => {
   console.log("Starting database connection...".yellow);
@@ -66,11 +80,7 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        "frame-ancestors": [
-          "'self'",
-          "https://learning-app-inky-tau.vercel.app",
-          "http://localhost:5173",
-        ],
+        "frame-ancestors": ["'self'", ...allowedOrigins],
       },
     },
     crossOriginResourcePolicy: false,
@@ -91,16 +101,12 @@ app.use(limiter);
 app.use(hpp());
 
 // Enable CORS
-const allowedOrigins = [
-  "https://learning-app-inky-tau.vercel.app",
-  "http://localhost:5173",
-];
-
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true); // allow non-browser tools (curl, Postman)
-      return allowedOrigins.includes(origin)
+      const normalized = origin.replace(/\/$/, "");
+      return allowedOrigins.includes(normalized)
         ? callback(null, true)
         : callback(new Error("Not allowed by CORS"));
     },
@@ -117,9 +123,10 @@ app.use(
   (req, res, next) => {
     // remove X-Frame-Options added by default and add CSP frame-ancestors
     res.removeHeader("X-Frame-Options");
+    const frameAncestors = ["'self'", ...allowedOrigins].join(" ");
     res.setHeader(
       "Content-Security-Policy",
-      "frame-ancestors 'self' http://localhost:5173 https://learning-app-inky-tau.vercel.app",
+      `frame-ancestors ${frameAncestors}`,
     );
     next();
   },
