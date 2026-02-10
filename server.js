@@ -19,17 +19,45 @@ dotenv.config({ path: "./config/config.env" });
 
 // Build allowed frontend origins from env with safe fallbacks
 const normalizeOrigin = (o) => (o ? o.replace(/\/$/, "") : o);
+const splitEnvList = (v) =>
+  (v || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+// Support both single values and comma-separated lists
 const ENV_ORIGINS = [
+  ...splitEnvList(process.env.FRONTEND_URLS),
   normalizeOrigin(process.env.FRONTEND_URL),
   normalizeOrigin(process.env.FRONTEND_LOCAL_URL),
 ].filter(Boolean);
+
 const DEFAULT_ORIGINS = [
+  // Production app (adjust if your Vercel URL changes)
   "https://learning-app-inky-tau.vercel.app",
+  // Local dev (Vite)
   "http://localhost:5173",
 ];
+
 const allowedOrigins = Array.from(
   new Set([...ENV_ORIGINS, ...DEFAULT_ORIGINS]),
 );
+
+// Optional pattern-based allowances (useful for Vercel preview URLs)
+// Enable by default for *.vercel.app to avoid CORS issues on preview deployments
+const originRegexps = [
+  /\.vercel\.app$/i,
+  // You can add more patterns via FRONTEND_ORIGIN_PATTERNS env (comma-separated regex bodies)
+  ...splitEnvList(process.env.FRONTEND_ORIGIN_PATTERNS)
+    .map((p) => {
+      try {
+        return new RegExp(p, "i");
+      } catch {
+        return null;
+      }
+    })
+    .filter(Boolean),
+];
 
 // Connect to database with explicit startup logs
 const startDatabase = async () => {
@@ -104,11 +132,31 @@ app.use(hpp());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // allow non-browser tools (curl, Postman)
+      // Allow non-browser requests (no Origin header)
+      if (!origin) return callback(null, true);
+
       const normalized = origin.replace(/\/$/, "");
-      return allowedOrigins.includes(normalized)
-        ? callback(null, true)
-        : callback(new Error("Not allowed by CORS"));
+
+      // Quick allow if exact match
+      if (allowedOrigins.includes(normalized)) return callback(null, true);
+
+      // Try hostname-based pattern match (e.g., *.vercel.app previews)
+      try {
+        const { hostname } = new URL(origin);
+        if (originRegexps.some((re) => re.test(hostname))) {
+          return callback(null, true);
+        }
+      } catch {
+        // If URL parsing fails, fall through to rejection
+      }
+
+      // Otherwise reject with a clear error (helps debugging)
+      console.warn(
+        `CORS blocked origin: ${origin}. Allowed: ${JSON.stringify(
+          allowedOrigins,
+        )}`,
+      );
+      return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
   }),

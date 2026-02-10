@@ -24,6 +24,9 @@ router.use(protect);
 // Allow any authenticated user to upload their own profile photo
 router.route("/:id/photo").put(upload, userPhotoUpload);
 
+// Allow any authenticated user (any role) to submit tests
+router.route("/:id/submit").post(submitTest);
+
 // The routes below require elevated role
 router.use(authorize("publisher"));
 
@@ -32,8 +35,6 @@ router.route("/").get(advancedResults(User), getUsers).post(createUser);
 router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 
 // (kept above without role restriction)
-
-router.route("/:id/submit").post(protect, submitTest);
 
 router.route("/:id").get(protect, getSingleTest);
 
