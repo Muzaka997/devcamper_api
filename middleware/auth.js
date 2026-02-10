@@ -7,19 +7,29 @@ const User = require("../models/User");
 exports.protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  // Check for token in header
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  } else if (req.cookies.token) {
+  // Prefer Authorization header (case-insensitive), accept variations and fallbacks
+  const authHeader = req.headers.authorization || req.headers.Authorization;
+  if (authHeader) {
+    const parts = String(authHeader).trim().split(" ");
+    if (parts.length === 2 && /^Bearer$/i.test(parts[0])) {
+      token = parts[1];
+    } else if (parts.length === 1) {
+      // Allow raw token without scheme
+      token = parts[0];
+    }
+  }
+
+  // Fallbacks: custom header and cookie
+  if (!token && req.headers["x-auth-token"]) {
+    token = req.headers["x-auth-token"];
+  }
+  if (!token && req.cookies && req.cookies.token) {
     token = req.cookies.token;
   }
 
   // Make sure token exists
   if (!token) {
-    return next(new ErrorResponse("Not authorized to access this route", 401));
+    return next(new ErrorResponse("Not authorized: token missing", 401));
   }
 
   try {
@@ -28,9 +38,13 @@ exports.protect = asyncHandler(async (req, res, next) => {
 
     req.user = await User.findById(decoded.id);
 
+    if (!req.user) {
+      return next(new ErrorResponse("Not authorized: user not found", 401));
+    }
+
     next();
   } catch (err) {
-    return next(new ErrorResponse("Not authorized to access this route", 401));
+    return next(new ErrorResponse("Not authorized: token invalid", 401));
   }
 });
 
@@ -41,8 +55,8 @@ exports.authorize = (...roles) => {
       return next(
         new ErrorResponse(
           `User role ${req.user.role} is not authorized to access this route`,
-          403
-        )
+          403,
+        ),
       );
     }
     next();

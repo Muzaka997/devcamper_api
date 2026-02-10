@@ -4,21 +4,62 @@ const sendEmail = require("../utils/sendEmail");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 
-// @desc      Register user
+// @desc      Register user (sends email verification link)
 // @route     POST /api/v1/auth/register
 // @access    Public
 exports.register = asyncHandler(async (req, res, next) => {
   const { name, email, password, role } = req.body;
 
-  //create user
-  const user = await User.create({
-    name,
-    email,
-    password,
-    role,
-  });
+  // Create user
+  const user = await User.create({ name, email, password, role });
 
-  sendTokenResponse(user, 200, res);
+  // Generate email verification token
+  const verifyToken = user.getEmailVerifyToken();
+  await user.save({ validateBeforeSave: false });
+
+  const frontendBase =
+    process.env.FRONTEND_URL ||
+    (process.env.NODE_ENV === "production"
+      ? "https://example.com" // fallback, update FRONTEND_URL in env
+      : "http://localhost:5173");
+
+  const verifyUrl = `${frontendBase}/verify-email?token=${verifyToken}`;
+
+  const message = `Please verify your email by clicking the following link: ${verifyUrl}`;
+  const html = `
+    <div style="font-family:Arial,sans-serif;line-height:1.5;color:#111">
+      <h2>Verify your email</h2>
+      <p>Hi ${name || "there"},</p>
+      <p>Thanks for registering. Please confirm this email address to activate your account.</p>
+      <p>
+        <a href="${verifyUrl}" style="display:inline-block;padding:10px 16px;background:#1976d2;color:#fff;text-decoration:none;border-radius:6px">Verify Email</a>
+      </p>
+      <p>If the button doesn't work, copy and paste this URL in your browser:</p>
+      <p><a href="${verifyUrl}">${verifyUrl}</a></p>
+      <p>This link will expire in 24 hours.</p>
+    </div>
+  `;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "Verify your email",
+      message,
+      html,
+    });
+  } catch (err) {
+    // cleanup tokens if email fails
+    user.emailVerifyToken = undefined;
+    user.emailVerifyExpire = undefined;
+    await user.save({ validateBeforeSave: false });
+    return next(new ErrorResponse("Verification email could not be sent", 500));
+  }
+
+  res.status(200).json({
+    success: true,
+    message:
+      "Registration successful. Please check your email to verify your account.",
+  });
 });
 
 // @desc      Login user
@@ -44,6 +85,15 @@ exports.login = asyncHandler(async (req, res, next) => {
 
   if (!isMatch) {
     return next(new ErrorResponse("Invalid credentials", 401));
+  }
+
+  if (!user.isEmailVerified) {
+    return next(
+      new ErrorResponse(
+        "Please verify your email before logging in. We've sent you a verification link.",
+        401,
+      ),
+    );
   }
 
   sendTokenResponse(user, 200, res);
@@ -107,6 +157,35 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
   sendTokenResponse(user, 200, res);
 });
 
+// @desc      Verify email
+// @route     GET /api/v1/auth/verifyemail/:verifytoken
+// @access    Public
+exports.verifyEmail = asyncHandler(async (req, res, next) => {
+  const hashed = crypto
+    .createHash("sha256")
+    .update(req.params.verifytoken)
+    .digest("hex");
+
+  const user = await User.findOne({
+    emailVerifyToken: hashed,
+    emailVerifyExpire: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(
+      new ErrorResponse("Invalid or expired verification token", 400),
+    );
+  }
+
+  user.isEmailVerified = true;
+  user.emailVerifyToken = undefined;
+  user.emailVerifyExpire = undefined;
+  await user.save({ validateBeforeSave: false });
+
+  // After verification, issue auth token so user is signed in
+  sendTokenResponse(user, 200, res);
+});
+
 // @desc      Forgot password
 // @route     POST /api/v1/auth/forgotpassword
 // @access    Public
@@ -124,7 +203,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
   // Create reset url
   const resetUrl = `${req.protocol}://${req.get(
-    "host"
+    "host",
   )}/api/v1/auth/resetpassword/${resetToken}`;
 
   const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
@@ -179,13 +258,18 @@ const sendTokenResponse = (user, statusCode, res) => {
 
   const options = {
     expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000,
     ),
     httpOnly: true,
   };
 
-  if (process.env.NODE_ENV === "production") {
-    options.secure = true;
+  const isProd = process.env.NODE_ENV === "production";
+  if (isProd) {
+    options.secure = true; // cookie only over HTTPS
+    options.sameSite = "none"; // allow cross-site cookie for API on different domain
+  } else {
+    // In local dev, allow default lax which works for same-site localhost origins
+    options.sameSite = "lax";
   }
 
   res

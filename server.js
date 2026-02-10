@@ -38,6 +38,7 @@ const auth = require("./routes/auth");
 const users = require("./routes/users");
 const books = require("./routes/books");
 const tests = require("./routes/tests");
+const contact = require("./routes/contact");
 
 const app = express();
 
@@ -148,6 +149,7 @@ app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
 app.use("/api/v1/books", books);
 app.use("/api/v1/tests", tests);
+app.use("/api/v1/contact", contact);
 
 app.use(errorHandler);
 
