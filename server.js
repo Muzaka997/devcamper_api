@@ -113,8 +113,10 @@ app.use(limiter);
 app.use(hpp());
 
 // Enable CORS (allow prod, local, and Vercel preview domains)
+const isDevEnv = (process.env.NODE_ENV || "development") !== "production";
 const isAllowedOrigin = (origin) => {
   if (!origin) return true; // allow non-browser tools (curl, Postman)
+  if (isDevEnv) return true; // in local dev, allow all to prevent CORS friction
   const normalized = origin.replace(/\/$/, "");
   if (allowedOrigins.includes(normalized)) return true;
 
@@ -138,6 +140,16 @@ app.use(
       return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+    ],
+    exposedHeaders: ["Set-Cookie"],
+    optionsSuccessStatus: 204,
   }),
 );
 
@@ -150,6 +162,16 @@ app.options(
       return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+    ],
+    exposedHeaders: ["Set-Cookie"],
+    optionsSuccessStatus: 204,
   }),
 );
 
