@@ -11,6 +11,7 @@ const rateLimit = require("express-rate-limit");
 const hpp = require("hpp");
 const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
+const mountGraphQL = require("./graphql");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
@@ -206,6 +207,9 @@ const ensureDBConnected = async (req, res, next) => {
 };
 
 app.use(ensureDBConnected);
+
+// GraphQL endpoint (coexists with the REST API below)
+mountGraphQL(app);
 
 // Health check for serverless function / monitoring
 app.get("/api/health", (req, res) => {
