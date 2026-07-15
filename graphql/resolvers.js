@@ -1,6 +1,7 @@
 // GraphQL resolvers (thin slice: read-only courses)
 // Resolvers reuse the exact same Mongoose models the REST controllers use.
 const Course = require("../models/Course");
+const Book = require("../models/Book");
 
 const resolvers = {
   Query: {
@@ -9,6 +10,12 @@ const resolvers = {
     },
     course: async (_parent, { id }) => {
       return Course.findById(id);
+    },
+    books: async () => {
+      return Book.find();
+    },
+    book: async (_parent, { id }) => {
+      return Book.findById(id);
     },
   },
   Course: {
