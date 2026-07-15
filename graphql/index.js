@@ -10,6 +10,7 @@
 // works for both `node server.js` and the serverless wrapper (api/index.js).
 const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@as-integrations/express4");
+const { graphqlUploadExpress } = require("graphql-upload-minimal");
 const typeDefs = require("./typeDefs");
 const resolvers = require("./resolvers");
 const buildContext = require("./context");
@@ -29,9 +30,15 @@ const startPromise = server
   });
 
 const mountGraphQL = (app) => {
-  app.use("/graphql", (req, res, next) => {
-    startPromise.then(() => handler(req, res, next)).catch(next);
-  });
+  app.use(
+    "/graphql",
+    // Parse multipart/form-data uploads (graphql-multipart-request-spec).
+    // Passes through non-multipart requests untouched.
+    graphqlUploadExpress({ maxFileSize: 5 * 1024 * 1024, maxFiles: 1 }),
+    (req, res, next) => {
+      startPromise.then(() => handler(req, res, next)).catch(next);
+    },
+  );
 };
 
 module.exports = mountGraphQL;

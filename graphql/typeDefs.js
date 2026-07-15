@@ -1,7 +1,11 @@
-// GraphQL schema (thin slice: read-only courses)
+// GraphQL schema: read queries (courses, books, tests) + mutations
+// (auth, test submit, contact, profile photo upload).
 const { gql } = require("graphql-tag");
 
 const typeDefs = gql`
+  # Binary upload scalar (provided by graphql-upload-minimal)
+  scalar Upload
+
   type CourseImage {
     url: String
     publicId: String
@@ -65,7 +69,58 @@ const typeDefs = gql`
     createdAt: String
   }
 
+  type TestResult {
+    test: ID
+    score: Int
+    passed: Boolean
+    submitted: Boolean
+    takenAt: String
+  }
+
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+    role: String!
+    profilePhoto: String
+    testResults: [TestResult!]!
+  }
+
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
+
+  input AnswerInput {
+    questionId: String!
+    selectedOption: String!
+  }
+
+  type CorrectAnswer {
+    questionId: String!
+    answer: String!
+  }
+
+  type SubmitResult {
+    score: Int!
+    passed: Boolean!
+    correctAnswers: [CorrectAnswer!]!
+  }
+
+  type ContactResult {
+    sent: Boolean!
+    note: String
+  }
+
+  type PhotoResult {
+    success: Boolean!
+    imageUrl: String
+  }
+
   type Query {
+    # Currently authenticated user (null-safe: errors if not logged in)
+    me: User
+
     # List all courses
     courses: [Course!]!
     # Get a single course by id
@@ -78,6 +133,24 @@ const typeDefs = gql`
     tests: [Test!]!
     # Get a single test by id
     test(id: ID!): Test
+  }
+
+  type Mutation {
+    # Register a new user and return a signed JWT
+    register(
+      name: String!
+      email: String!
+      password: String!
+      role: String
+    ): AuthPayload!
+    # Log in and return a signed JWT
+    login(email: String!, password: String!): AuthPayload!
+    # Submit answers for a test and get the graded result
+    submitTest(testId: ID!, answers: [AnswerInput!]!): SubmitResult!
+    # Send a contact message from the authenticated account
+    sendContactMessage(name: String, message: String!): ContactResult!
+    # Upload/replace the authenticated user's profile photo
+    uploadProfilePhoto(userId: ID!, file: Upload!): PhotoResult!
   }
 `;
 
