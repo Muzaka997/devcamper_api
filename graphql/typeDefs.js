@@ -46,6 +46,25 @@ const typeDefs = gql`
     pdf: String
   }
 
+  # Note: correctAnswer is intentionally NOT exposed — clients never need it,
+  # and the grading result (with correct answers) comes back from the REST
+  # submit endpoint after a test is taken.
+  type Question {
+    id: String!
+    question: String!
+    options: [String!]!
+  }
+
+  type Test {
+    id: ID!
+    courseTitle: String!
+    title: String!
+    timeLimitMinutes: Int!
+    passingScore: Int!
+    questions: [Question!]!
+    createdAt: String
+  }
+
   type Query {
     # List all courses
     courses: [Course!]!
@@ -55,6 +74,10 @@ const typeDefs = gql`
     books: [Book!]!
     # Get a single book by id
     book(id: ID!): Book
+    # List all tests
+    tests: [Test!]!
+    # Get a single test by id
+    test(id: ID!): Test
   }
 `;
 
